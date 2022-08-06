@@ -1,51 +1,132 @@
-import { createStore } from "redux";
+import {createStore} from 'redux'
 
-const counter = (state = 0, action) => {
-  if (action.type === "INCREMENT") {
-    return state + 1;
+let nextTodoId = 0
+const todos = (state=[],action)=>{
+  switch (action.type){
+    case 'ADD_TODO':{
+      return [
+      ...state,
+      {
+        id: ++nextTodoId,
+        title:action.type,
+        completed:false,
+      }
+    ];
+    }
+    case 'TOOGGLE_TODO': {
+      return state.map(todo=>(
+        todo.id===action.type
+        ?{
+          ...todo,
+          completed:!todo.completed,
+        } : todo
+      ))
+    }
+    default:{
+      return state;
+    }
   }
-  if (action.type === "DECREMENT") {
-    return state - 1;
+}
+const store = createStore(todos)
+
+const addTodo = (title)=>
+({
+  type: 'ADD_TODO',
+  title,
+})
+const toggleTodo = (todoId)=>({
+  type:'TOGGLE_TODO',
+  todoId,
+})
+
+console.log(store.getState())
+store.dispatch(addTodo('LearnReact'))
+console.log(store.getState())
+import {createStore} from 'redux'
+
+let nextTodoId = 0
+const todos = (state=[],action)=>{
+  switch (action.type){
+    case 'ADD_TODO':{
+      return [
+      ...state,
+      {
+        id: ++nextTodoId,
+        title:action.type,
+        completed:false,
+      }
+    ];
+    }
+    case 'TOOGGLE_TODO': {
+      return state.map(todo=>(
+        todo.id===action.type
+        ?{
+          ...todo,
+          completed:!todo.completed,
+        } : todo
+      ))
+    }
+    default:{
+      return state;
+    }
   }
-  if (action.type === "RESET") {
-    return state * 0;
+}
+const store = createStore(todos)
+
+const addTodo = (title)=>
+({
+  type: 'ADD_TODO',
+  title,
+})
+const toggleTodo = (todoId)=>({
+  type:'TOGGLE_TODO',
+  todoId,
+})
+
+console.log(store.getState())
+store.dispatch(addTodo('LearnReact'))
+console.log(store.getState())
+import {createStore} from 'redux'
+
+let nextTodoId = 0
+const todos = (state=[],action)=>{
+  switch (action.type){
+    case 'ADD_TODO':{
+      return [
+      ...state,
+      {
+        id: ++nextTodoId,
+        title:action.type,
+        completed:false,
+      }
+    ];
+    }
+    case 'TOOGGLE_TODO': {
+      return state.map(todo=>(
+        todo.id===action.type
+        ?{
+          ...todo,
+          completed:!todo.completed,
+        } : todo
+      ))
+    }
+    default:{
+      return state;
+    }
   }
-  return state;
-};
+}
+const store = createStore(todos)
 
-const store = createStore(counter);
+const addTodo = (title)=>
+({
+  type: 'ADD_TODO',
+  title,
+})
+const toggleTodo = (todoId)=>({
+  type:'TOGGLE_TODO',
+  todoId,
+})
 
-const increment = {
-  type: "INCREMENT"
-};
-const decrement = {
-  type: "DECREMENT"
-};
-const reset = {
-  type: "RESET"
-};
-
-const count = document.createElement("div");
-count.innerText = store.getState();
-count.id = "count";
-document.body.append(count);
-
-const decBtn = document.createElement("button");
-decBtn.innerText = "-";
-decBtn.onclick = () => store.dispatch(decrement);
-document.body.append(decBtn);
-
-const incBtn = document.createElement("button");
-decBtn.innerText = "+";
-incBtn.onclick = () => store.dispatch(increment);
-document.body.append(incBtn);
-
-const resetBtn = document.createElement("button");
-decBtn.innerText = "reset";
-resetBtn.onclick = () => store.dispatch(reset);
-document.body.append(resetBtn);
-
-const render = () => {
-  document.getElementById("count").innerText = store.getState();
-};
-store.subscribe(render);
+console.log(store.getState())
+store.dispatch(addTodo('LearnReact'))
+console.log(store.getState())
