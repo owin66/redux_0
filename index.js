@@ -27,7 +27,11 @@ const todos = (state=[],action)=>{
     }
   }
 }
-const store = createStore(todos)
+const defaultValues = [
+  { id: 0, title: "hello", completed: false },
+  { id: 1, title: "hello 2", completed: false }
+];
+const store = createStore(todos,defaultValues)
 
 const addTodo = (title)=>
 ({
