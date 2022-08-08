@@ -43,6 +43,7 @@ const toggleTodo = (todoId)=>({
   todoId,
 })
 
+
 console.log(store.getState())
 store.dispatch(addTodo('LearnReact'))
 console.log(store.getState())
