@@ -1,46 +1,52 @@
-import {createStore} from 'redux'
+import {
+  createStore
+} from 'redux'
 
-let nextTodoId = 0
-const todos = (state=[],action)=>{
-  switch (action.type){
-    case 'ADD_TODO':{
+
+const todos = (state = [], action) => {
+  switch (action.type) {
+    case 'ADD_TODO': {
       return [
-      ...state,
-      {
-        id: ++nextTodoId,
-        title:action.type,
-        completed:false,
-      }
-    ];
+        ...state,
+        {
+          id: Date.now(),
+          title: action.type,
+          completed: false,
+        }
+      ];
+    }
+    case 'REMOVE_TODO': {
+      return state.filter((todo) => todo.id !== action.id)
     }
     case 'TOOGGLE_TODO': {
-      return state.map(todo=>(
-        todo.id===action.type
-        ?{
+      return state.map(todo => (
+        todo.id === action.type ? {
           ...todo,
-          completed:!todo.completed,
+          completed: !todo.completed,
         } : todo
       ))
     }
-    default:{
+    default: {
       return state;
     }
   }
 }
-const defaultValues = [
-  { id: 0, title: "hello", completed: false },
-  { id: 1, title: "hello 2", completed: false }
-];
-const store = createStore(todos,defaultValues)
 
-const addTodo = (title)=>
-({
-  type: 'ADD_TODO',
-  title,
-})
-const toggleTodo = (todoId)=>({
-  type:'TOGGLE_TODO',
-  todoId,
+const store = createStore(todos, defaultValues)
+
+const addTodo = (title) =>
+  ({
+    type: 'ADD_TODO',
+    title,
+  })
+const removeTodo = (title) =>
+  ({
+    type: 'REMOVE_TODO',
+    id,
+  })
+const toggleTodo = (todoId) => ({
+  type: 'TOGGLE_TODO',
+  id,
 })
 
 
